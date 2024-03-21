@@ -3,6 +3,7 @@ using Examen7133933.services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
@@ -20,6 +21,8 @@ namespace Examen7133933.endpoints
         }
 
         [Function("InsertarProveedor")]
+        [OpenApiOperation("InsertarProveedor", Description = "Sirve para Insertar Proveedor")]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(Proveedor))]
         public async Task<HttpResponseData> InsertarProveedor([HttpTrigger(AuthorizationLevel.Function, "post", Route = "InsertarProveedor")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -43,6 +46,9 @@ namespace Examen7133933.endpoints
             }
         }
         [Function("GetAllProveedor")]
+        [OpenApiOperation("ListaProveedores", Description = "Sirve para Listar Proveedores")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<Producto>),
+            Description = "Muestra los proveedores de la base de datos")]
         public async Task<HttpResponseData> GetAllProveedor([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -64,6 +70,8 @@ namespace Examen7133933.endpoints
         }
 
         [Function("GetProveedor")]
+        [OpenApiOperation("Lista un Proveedor por Id", Description = "Sirve para listar un Proveedor")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
         public async Task<HttpResponseData> GetProveedor([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -88,6 +96,8 @@ namespace Examen7133933.endpoints
             }
         }
         [Function("UpdateProveedor")]
+        [OpenApiOperation("Actualiza un Proveedor", Description = "Sirve para Actualizar un Proveedor")]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(Proveedor))]
         public async Task<HttpResponseData> UpdateProveedor([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -110,6 +120,8 @@ namespace Examen7133933.endpoints
             }
         }
         [Function("DeleteProveedor")]
+        [OpenApiOperation("Elimina un Proveedor", Description = "Sirve para Eliminar un Proveedor")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
         public async Task<HttpResponseData> DeleteProveedor([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData resp;

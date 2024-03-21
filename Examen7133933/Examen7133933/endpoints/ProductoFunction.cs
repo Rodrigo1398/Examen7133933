@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
@@ -21,6 +22,8 @@ namespace Examen7133933.endpoints
         }
 
         [Function("InsertarProducto")]
+        [OpenApiOperation("InsertarProducto", Description = "Sirve para Insertar Producto")]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(Producto))]
         public async Task<HttpResponseData> InsertarProducto([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -48,6 +51,9 @@ namespace Examen7133933.endpoints
             }
         }
         [Function("GetAllProducto")]
+        [OpenApiOperation("ListarProductos", Description = "Sirve para Listar Productos")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<Producto>),
+            Description = "Muestra los productos de la base de datos")]
         public async Task<HttpResponseData> GetAllProducto([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -65,6 +71,8 @@ namespace Examen7133933.endpoints
             }
         }
         [Function("DeleteProducto")]
+        [OpenApiOperation("Elimina un Producto", Description = "Sirve para Eliminar un Producto")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
         public async Task<HttpResponseData> DeleteProducto([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -91,7 +99,9 @@ namespace Examen7133933.endpoints
                 return resp;
             }
         }
-        [Function("GetProducto")]
+        [Function("GetProducto")] 
+        [OpenApiOperation("Lista un Producto por Id", Description = "Sirve para listar un Producto")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
         public async Task<HttpResponseData> ObtenerProducto([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -111,6 +121,8 @@ namespace Examen7133933.endpoints
             }
         }
         [Function("UpdateProducto")]
+        [OpenApiOperation("Actualiza un Producto", Description = "Sirve para Actualizar un Producto")]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(Producto))]
         public async Task<HttpResponseData> UpdateProducto([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
         {
             HttpResponseData resp;
