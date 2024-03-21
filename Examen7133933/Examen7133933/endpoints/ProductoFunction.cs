@@ -6,6 +6,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System.Net;
 
 namespace Examen7133933.endpoints
@@ -72,7 +73,8 @@ namespace Examen7133933.endpoints
         }
         [Function("DeleteProducto")]
         [OpenApiOperation("Elimina un Producto", Description = "Sirve para Eliminar un Producto")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
+        [OpenApiParameter(name: "partitionkey", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "el partitionkey del producto")]
+        [OpenApiParameter(name: "rowkey", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "el rowkey del producto")]
         public async Task<HttpResponseData> DeleteProducto([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -101,11 +103,11 @@ namespace Examen7133933.endpoints
         }
         [Function("GetProducto")] 
         [OpenApiOperation("Lista un Producto por Id", Description = "Sirve para listar un Producto")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "el id del producto")]
         public async Task<HttpResponseData> ObtenerProducto([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
-            var id = req.Query["Id"];
+            var id = req.Query["id"];
             if (id == null) return req.CreateResponse(HttpStatusCode.BadRequest);
             try
             {

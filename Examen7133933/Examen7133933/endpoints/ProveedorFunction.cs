@@ -5,6 +5,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System.Net;
 
 namespace Examen7133933.endpoints
@@ -71,7 +72,7 @@ namespace Examen7133933.endpoints
 
         [Function("GetProveedor")]
         [OpenApiOperation("Lista un Proveedor por Id", Description = "Sirve para listar un Proveedor")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "El ID del proveedor")]
         public async Task<HttpResponseData> GetProveedor([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
@@ -121,7 +122,8 @@ namespace Examen7133933.endpoints
         }
         [Function("DeleteProveedor")]
         [OpenApiOperation("Elimina un Proveedor", Description = "Sirve para Eliminar un Proveedor")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(void))]
+        [OpenApiParameter(name: "partitionkey", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "el partitionkey del proveedor")]
+        [OpenApiParameter(name: "rowkey", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "el rowkey del proveedor")]
         public async Task<HttpResponseData> DeleteProveedor([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             HttpResponseData resp;
