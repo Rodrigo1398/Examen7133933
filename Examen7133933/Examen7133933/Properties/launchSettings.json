@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Examen7133933": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7277",
+      "environmentVariables": {
+        "cadenaConexion": "DefaultEndpointsProtocol=https;AccountName=colingdb1;AccountKey=rjYS8wIFRUqAyuj/SIankgGjtrdsT5PBXy3nM34dmqu+287l3KCiBC6J25KfwkYOgB6XEZt0UBvA+AStd/MqAg==;EndpointSuffix=core.windows.net"
+      }
+    }
+  }
+}
