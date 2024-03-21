@@ -16,7 +16,7 @@ namespace Examen7133933.models
 
         public double Precio { get; set; }
 
-        public string ProveedorId { get; set; }
+        public string IdProveedor { get; set; }
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
         public DateTimeOffset? Timestamp { get; set; }

@@ -11,17 +11,15 @@ namespace Examen7133933.services
 {
     public class ProductoService
     {
-        private readonly string? cadenaConexion;
-        private readonly string tablaNombre;
-        private readonly IConfiguration configuration;
-
+        public readonly string cadenaConexion;
+        public readonly string tablaNombre;
+        public readonly IConfiguration configuration;
         public ProductoService(IConfiguration conf)
         {
-            configuration = conf;
-            cadenaConexion = configuration.GetSection("cadenaConexion").Value;
-            tablaNombre = "Producto";
+            this.configuration = conf;
+            this.cadenaConexion = configuration.GetSection("cadenaConexion").Value ?? "";
+            this.tablaNombre = "Producto";
         }
-
 
         public async Task<bool> Create(Producto producto)
         {
