@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
-namespace Examen7133933
+namespace Examen7133933.endpoints
 {
-    public class Function1
+    public class ProductoFunction
     {
-        private readonly ILogger<Function1> _logger;
+        private readonly ILogger<ProductoFunction> _logger;
 
-        public Function1(ILogger<Function1> logger)
+        public ProductoFunction(ILogger<ProductoFunction> logger)
         {
             _logger = logger;
         }
 
-        [Function("Function1")]
+        [Function("ProductoFunction")]
         public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
